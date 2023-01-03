@@ -1,0 +1,34 @@
+{
+    "$schema": "https://schema.management.azure.com/schemas/2015-01-01/deploymentParameters.json#",
+    "contentVersion": "1.0.0.0",
+    "parameters": {
+        "location": {
+            "value": "East US"
+        },
+        "linuxFxVersion": {
+            "value": "DOCKER|hartou/wordpress:php7.4-alpine3.15"
+        },
+        "dockerRegistryUrl": {
+            "value": "https://index.docker.io"
+        },     
+        "serverUsername": {
+            "value": "serverUsername" //Todo: Change This
+        },
+        "wordpressTitle": {
+            "value": "WordPress On Azure" //Todo: Change This
+        },
+        "wordpressAdminEmail": {
+            "value": "wordpress@Admin.Email"//Todo: Change This
+        },
+        "wordpressUsername": {
+            "value": "wordpressUsername" //Todo: Change This 
+        },
+        "sku": {
+            "value": "PremiumV2"
+        },
+        "skuCode": {
+            "value": "P1v2"
+        }
+
+    }
+}
