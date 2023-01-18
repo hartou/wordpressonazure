@@ -6,22 +6,22 @@
             "value": "East US"
         },
         "linuxFxVersion": {
-            "value": "DOCKER|hartou/wordpress:php7.4-alpine3.15"
+            "value": "DOCKER|hartou/wordpress:php7.4-alpn3.15-van2"
         },
         "dockerRegistryUrl": {
             "value": "https://index.docker.io"
         },     
         "serverUsername": {
-            "value": "serverUsername" //Todo: Change This
+            "value": "julienadmin"
         },
         "wordpressTitle": {
-            "value": "WordPress On Azure" //Todo: Change This
+            "value": "WordPress On Azure with Docker"
         },
         "wordpressAdminEmail": {
-            "value": "wordpress@Admin.Email"//Todo: Change This
+            "value": "wordpress@Admin.Email"
         },
         "wordpressUsername": {
-            "value": "wordpressUsername" //Todo: Change This 
+            "value": "wordpressUsername"
         },
         "sku": {
             "value": "PremiumV2"

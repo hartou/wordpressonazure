@@ -5,8 +5,6 @@ param databaseVersion string = '8.0'
 param serverUsername string
 param serverEdition string = 'GeneralPurpose'
 param skuCode string = 'Standard_D2ds_v4'
-
-@secure()
 param serverPassword string
 param storageSizeGB int = 32
 param storageIops int = 1000

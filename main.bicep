@@ -50,7 +50,7 @@ param networkAclsDefaultAction string = 'Allow'
 param keySource string  = 'Microsoft.Storage'
 param encryptionEnabled bool= true
 param infrastructureEncryptionEnabled bool  = true
-param blobContainerName string = '${name}blob'
+param blobContainerName string = toLower('${name}blob')
 param blobPublicAccessLevel string = 'blob'
 param vnetName string = '${name}-vnet'
 param subnetForApp string= '${name}-subnet-app'
@@ -61,6 +61,7 @@ param cdnOriginHostHeader string = '${name}.azurewebsites.net'
 // tags
 var tags = {
   AppProfile: 'Wordpress'
+  AppType: 'Web'
 }
 
 var databaseName = '${name}-${uniqueString(resourceGroup().id)}-wpdb'
@@ -158,7 +159,9 @@ resource serverName_database 'Microsoft.DBforMySQL/flexibleServers/databases@202
     mysqlserver
   ]
 }
-
+// resource frontdoor 'Microsoft.network/frontdoors@2021-04-01' existing= {
+//   name: name
+// }
 resource vnet 'Microsoft.Network/virtualNetworks@2022-07-01' = {
   location: location
   name: vnetName
@@ -506,3 +509,4 @@ resource storageAccountName_default_blobContainer 'Microsoft.Storage/storageAcco
     storageAccount
   ]
 }
+
