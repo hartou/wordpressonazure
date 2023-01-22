@@ -5,12 +5,12 @@ param serverName string
 param databaseName string
 param serverUsername string
 
-
+@secure()
 param serverPassword string
 
 param wordpressAdminEmail string
 param  wordpressUsername string
-
+@secure()
 param  wordpressPassword string
 
 

@@ -1,34 +1,28 @@
 {
-    "$schema": "https://schema.management.azure.com/schemas/2015-01-01/deploymentParameters.json#",
-    "contentVersion": "1.0.0.0",
-    "parameters": {
-        "location": {
-            "value": "East US"
-        },
-        "linuxFxVersion": {
-            "value": "DOCKER|hartou/wordpress:php7.4-alpn3.15-van2"
-        },
-        "dockerRegistryUrl": {
-            "value": "https://index.docker.io"
-        },     
-        "serverUsername": {
-            "value": "julienadmin"
-        },
-        "wordpressTitle": {
-            "value": "WordPress On Azure with Docker"
-        },
-        "wordpressAdminEmail": {
-            "value": "wordpress@Admin.Email"
-        },
-        "wordpressUsername": {
-            "value": "wordpressUsername"
-        },
-        "sku": {
-            "value": "PremiumV2"
-        },
-        "skuCode": {
-            "value": "P1v2"
-        }
-
+  "$schema": "https://schema.management.azure.com/schemas/2019-04-01/deploymentParameters.json#",
+  "contentVersion": "1.0.0.0",
+  "parameters": {
+    "location": {
+      "value": "East US"
+    },
+    "linuxFxVersion": {
+      "value": "DOCKER|hartou/wordpress:php7.4-alpn3.15-van2"
+    },
+    "dockerRegistryUrl": {
+      "value": "https://index.docker.io"
+    },
+    "serverUsername": {
+      "value": "julienadmin"
+    },
+    "wordpressTitle": {
+      "value": "WordPress On Azure with install docker core"
+    },
+    "wordpressAdminEmail": {
+      "value": "wordpress@admin.Email"
+    },
+    "wordpressUsername": {
+      "value": "wordpressUsername"
     }
+
+  }
 }

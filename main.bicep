@@ -4,12 +4,12 @@
 // The template also deploys a private endpoint for the database.
 // The template also deploys a private endpoint for the storage account.  
 // The template also deploys a private endpoint for the CDN endpoint.
-
+//param baseName string
 param name string
 param location string
-param hostingPlanName string= 'plan${name}${uniqueString(resourceGroup().id)}'
-param sku string
-param skuCode string
+param hostingPlanName string = '${name}-appserviceplan'
+param sku string = 'PremiumV2'
+param skuCode string = 'P1V2'
 param kind string = 'linux'
 param reserved bool = true
 param alwaysOn bool = true
@@ -22,7 +22,7 @@ param backupRetentionDays int = 7
 param geoRedundantBackup string = 'disabled'
 param charset string = 'utf8'
 param collation string = 'utf8_general_ci'
-param serverName string= '${name}${uniqueString(resourceGroup().id)}-mysql'
+param serverName string= '${name}-mysql'
 param serverUsername string
 
 @secure()
@@ -64,8 +64,8 @@ var tags = {
   AppType: 'Web'
 }
 
-var databaseName = '${name}-${uniqueString(resourceGroup().id)}-wpdb'
-var storageAccountName  = toLower('${name}${uniqueString(resourceGroup().id)}')
+var databaseName = '${name}-wpdb'
+var storageAccountName  = toLower('${name}sa')
 var databaseVersion = '5.7'
 var vnetAddress = '10.0.0.0/23'
 var subnetAddressForApp = '10.0.0.0/24'
