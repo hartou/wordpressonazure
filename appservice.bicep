@@ -3,10 +3,10 @@ param  name string
 param  location string
 param serverName string
 param databaseName string
-param serverUsername string
+param sqlServerUsername string
 
 @secure()
-param serverPassword string
+param sqlServerPassword string
 
 param wordpressAdminEmail string
 param  wordpressUsername string
@@ -55,11 +55,11 @@ resource app_service 'Microsoft.Web/sites@2022-03-01' = {
         }
         {
           name: 'DATABASE_USERNAME'
-          value: serverUsername
+          value: sqlServerUsername
         }
         {
           name: 'DATABASE_PASSWORD'
-          value: serverPassword
+          value: sqlServerPassword
         }
         {
           name: 'WORDPRESS_ADMIN_EMAIL'

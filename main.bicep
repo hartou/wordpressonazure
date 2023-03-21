@@ -23,10 +23,10 @@ param geoRedundantBackup string = 'disabled'
 param charset string = 'utf8'
 param collation string = 'utf8_general_ci'
 param serverName string= '${name}-mysql'
-param serverUsername string
+param sqlServerUsername string
 
 @secure()
-param serverPassword string
+param sqlServerPassword string
 param wordpressTitle string
 param wordpressAdminEmail string
 param wordpressUsername string
@@ -82,8 +82,8 @@ module app_service 'appservice.bicep'= {
     location: location
     dockerRegistryUrl: dockerRegistryUrl
     serverName: serverName
-    serverUsername: serverUsername
-    serverPassword: serverPassword
+    sqlServerUsername: sqlServerUsername
+    sqlServerPassword: sqlServerPassword
     wordpressTitle: wordpressTitle
     wordpressAdminEmail: wordpressAdminEmail
     wordpressUsername: wordpressUsername
@@ -131,9 +131,9 @@ module mysqlserver 'sqlserver.bicep'={
     serverName: serverName
     location: location
     databaseVersion: databaseVersion
-    serverUsername: serverUsername
-    // serverPassword: kv.getSecret(serverPassword)
-    serverPassword: serverPassword
+    sqlServerUsername: sqlServerUsername
+    // sqlServerPassword: kv.getSecret(sqlServerPassword)
+    sqlServerPassword: sqlServerPassword
 
     storageSizeGB: storageSizeGB
     storageIops: storageIops

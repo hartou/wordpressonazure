@@ -11,8 +11,8 @@
     "dockerRegistryUrl": {
       "value": "https://index.docker.io"
     },
-    "serverUsername": {
-      "value": "julienadmin"
+    "sqlServerUsername": {
+      "value": "sajulienadmin"
     },
     "wordpressTitle": {
       "value": "WordPress On Azure with install docker core"

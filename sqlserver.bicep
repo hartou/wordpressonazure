@@ -2,11 +2,11 @@ param location string = resourceGroup().location
 param AppProfile string = 'Wordpress'
 param serverName string
 param databaseVersion string = '8.0'
-param serverUsername string
+param sqlServerUsername string
 param serverEdition string = 'GeneralPurpose'
 param skuCode string = 'Standard_D2ds_v4'
 @secure()
-param serverPassword string
+param sqlServerPassword string
 param storageSizeGB int = 32
 param storageIops int = 1000
 param storageAutoGrow string = 'Enabled'
@@ -31,8 +31,8 @@ resource Flexmysqlserver 'Microsoft.DBforMySQL/flexibleServers@2021-12-01-previe
   }
 
   properties: {
-    administratorLogin: serverUsername
-    administratorLoginPassword: serverPassword
+    administratorLogin: sqlServerUsername
+    administratorLoginPassword: sqlServerPassword
     backup: {
       backupRetentionDays: backupRetentionDays
       geoRedundantBackup: geoRedundantBackup

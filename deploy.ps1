@@ -1,8 +1,8 @@
 param
 (
-    [string]$name = "wpdemo$(Get-Random)",# Enter a base name for the resource.
-	[string] $deploymentName = "wpdemo-$(Get-Random)",
-    [string]$RGName = "${name}-rg",
+    [string]$name = "wp0321",# Enter a base name for the resource.
+	[string] $deploymentName = "wp-$(Get-Random)",
+    [string]$RGName = "${name}_rg",
     [string]$paramFileName = "./parameters.json",
     [string]$templateFileName = "./main.bicep",
     [string]$projectFolderName = "demosite",
@@ -12,8 +12,8 @@ param
     # [string]$keyVaultName="${name}-kv"
     #[string]$serverPassword_Scrt=$(read-host -Prompt "Enter sql server password"),
 	#[string]$wordpressPassword_Scrt=$(read-host -Prompt "Enter sql server password"),
-	[string]$serverPassword=([xml](Get-Content env.xml)).root.SQLServerPassword,
-    [string]$wordpressPassword=([xml](Get-Content env.xml)).root.WordPressPassword
+	[SecureString]$sqlServerPassword=([xml](Get-Content env.xml)).root.SQLServerPassword,
+    [SecureString]$wordpressPassword=([xml](Get-Content env.xml)).root.WordPressPassword
 )
 
 
@@ -45,7 +45,7 @@ az group create --name $RGName --location $location
 
 # Deploy the template to the resource group
 az deployment group create --resource-group $RGName --template-file $templateFileName `
-    --parameters $paramFileName name=$name wordpressPassword=$wordpressPassword serverPassword=$serverPassword
+    --parameters $paramFileName name=$name wordpressPassword=$wordpressPassword sqlServerPassword=$sqlServerPassword
 
 # create azure file share for wordpress
 # az storage share create --name "wpdemo-wpfiles" --account-name "wpdemostrgacc" --quota 5120
