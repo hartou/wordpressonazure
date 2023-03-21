@@ -2,27 +2,50 @@
   "$schema": "https://schema.management.azure.com/schemas/2019-04-01/deploymentParameters.json#",
   "contentVersion": "1.0.0.0",
   "parameters": {
-    "location": {
-      "value": "East US"
-    },
-    "linuxFxVersion": {
-      "value": "DOCKER|hartou/wordpress:php7.4-alpn3.15-van2"
-    },
-    "dockerRegistryUrl": {
-      "value": "https://index.docker.io"
-    },
-    "sqlServerUsername": {
-      "value": "sajulienadmin"
-    },
-    "wordpressTitle": {
-      "value": "WordPress On Azure with install docker core"
-    },
-    "wordpressAdminEmail": {
-      "value": "wordpress@admin.Email"
-    },
-    "wordpressUsername": {
-      "value": "wordpressUsername"
-    }
+    "location": 
+      {
+        "value": "East US"
+      },
+    "linuxFxVersion": 
+      {
+        "value": "DOCKER|hartou/wordpress:php7.4-alpn3.15-van2"
+      },
+    "dockerRegistryUrl":
+      {
+        "value": "https://index.docker.io"
+      },
+    "sqlServerUsername": 
+      {
+        "value": "sajulienadmin"
+      },
+    "wordpressTitle": 
+      {
+        "value": "WordPress On Azure with install docker core"
+      },
+    "wordpressAdminEmail": 
+      {
+        "value": "wordpress@admin.Email"
+      },
+    "wordpressUsername":
+      {
+        "value": "wordpressUsername"
+      },
+    "BYOS_mountName":
+      {
+        "value": "wpsite"
+      },
+      "BYOS_mountPath":
+      {
+        "value": "/home/site/wwwroot"
+      },
+    "AzureStorage_AccountName":
+      {
+        "value": "wp0321sa"
+      },
+    "AzureStorage_ShareName":
+      {
+        "value": "wpsite"
+      }
 
   }
 }

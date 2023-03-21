@@ -1,6 +1,6 @@
 param
 (
-    [string]$name = "wp0321",# Enter a base name for the resource.
+    [string]$name = "wp032123",# Enter a base name for the resource.
 	[string] $deploymentName = "wp-$(Get-Random)",
     [string]$RGName = "${name}_rg",
     [string]$paramFileName = "./parameters.json",
@@ -12,8 +12,9 @@ param
     # [string]$keyVaultName="${name}-kv"
     #[string]$serverPassword_Scrt=$(read-host -Prompt "Enter sql server password"),
 	#[string]$wordpressPassword_Scrt=$(read-host -Prompt "Enter sql server password"),
-	[SecureString]$sqlServerPassword=([xml](Get-Content env.xml)).root.SQLServerPassword,
-    [SecureString]$wordpressPassword=([xml](Get-Content env.xml)).root.WordPressPassword
+	[string]$sqlServerPassword=([xml](Get-Content env.xml)).root.SQLServerPassword,
+    [string]$wordpressPassword=([xml](Get-Content env.xml)).root.WordPressPassword,
+    [string]$AzureStorage_AccountKey=([xml](Get-Content env.xml)).root.AzureStorage_AccountKey
 )
 
 
@@ -35,17 +36,19 @@ az group create --name $RGName --location $location
 
 
 #Get value from secureStrings 
-#$serverPassword= [System.Convert]::ToBase64String([System.Text.Encoding]::UTF8.GetBytes($serverPassword_Scrt))
-#$wordpressPassword= [System.Convert]::ToBase64String([System.Text.Encoding]::UTF8.GetBytes($wordpressPassword_Scrt))
+# $sqlServerPassword= [System.Convert]::ToBase64String([System.Text.Encoding]::UTF8.GetBytes($serverPassword_Scrt))
+# $wordpressPassword= [System.Convert]::ToBase64String([System.Text.Encoding]::UTF8.GetBytes($wordpressPassword_Scrt))
 
 # or you can also use the following command to get the value from secureStrings
-#$serverPassword=[System.Runtime.InteropServices.Marshal]::PtrToStringAuto($serverPassword_Scrt)
-#$wordpressPassword=[System.Runtime.InteropServices.Marshal]::PtrToStringAuto($wordpressPassword_Scrt)
+# $sqlServerPassword=[System.Runtime.InteropServices.Marshal]::PtrToStringAuto($SQLserverPwd)
+# $wordpressPassword=[System.Runtime.InteropServices.Marshal]::PtrToStringAuto($wordpressPwd)
+# $AzureStorage_AccountKey=[System.Runtime.InteropServices.Marshal]::PtrToStringAuto($AzureStorage_AccKey)
 
 
 # Deploy the template to the resource group
 az deployment group create --resource-group $RGName --template-file $templateFileName `
-    --parameters $paramFileName name=$name wordpressPassword=$wordpressPassword sqlServerPassword=$sqlServerPassword
+    --parameters $paramFileName name=$name wordpressPassword=$wordpressPassword sqlServerPassword=$sqlServerPassword `
+    AzureStorage_AccountKey=$AzureStorage_AccountKey --name $deploymentName
 
 # create azure file share for wordpress
 # az storage share create --name "wpdemo-wpfiles" --account-name "wpdemostrgacc" --quota 5120

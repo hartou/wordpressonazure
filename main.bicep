@@ -1,9 +1,5 @@
 // This template deploys a Wordpress site with a MySQL database, a CDN endpoint, a storage account and a virtual network.
-// The template also deploys a virtual network, a subnet for the app and a subnet for the database.
-// The template also deploys a private DNS zone for the database.
-// The template also deploys a private endpoint for the database.
-// The template also deploys a private endpoint for the storage account.  
-// The template also deploys a private endpoint for the CDN endpoint.
+
 //param baseName string
 param name string
 param location string
@@ -58,6 +54,14 @@ param subnetForDb string= '${name}-subnet-db'
 param privateDnsZoneNameForDb string= '${name}-privatelink.mysql.database.azure.com'
 param cdnOriginHostHeader string = '${name}.azurewebsites.net'
 
+// BYOS: Bring Your Own Storage
+param BYOS_mountName string = 'BYOS'
+param BYOS_mountPath string = '/BYOS'
+param AzureStorage_AccountName string
+param AzureStorage_ShareName string
+
+@secure()
+param AzureStorage_AccountKey string
 // tags
 var tags = {
   AppProfile: 'Wordpress'
@@ -96,6 +100,13 @@ module app_service 'appservice.bicep'= {
     linuxFxVersion: linuxFxVersion
     hostingPlanName: hostingPlanName
     blobContainerName: blobContainerName
+    // BYOS: Bring Your Own Storage
+    BYOS_mountName: BYOS_mountName
+    BYOS_mountPath: BYOS_mountPath
+    AzureStorage_AccountName: AzureStorage_AccountName
+    AzureStorage_ShareName: AzureStorage_ShareName
+    AzureStorage_AccountKey: AzureStorage_AccountKey
+
   }
   dependsOn: [    
     mysqlserver
@@ -216,7 +227,8 @@ resource privateDnsZoneNameForDb_resource 'Microsoft.Network/privateDnsZones@202
 }
 
 resource privateDnsZoneNameForDb_privateDnsZoneNameForDb_vnetlink 'Microsoft.Network/privateDnsZones/virtualNetworkLinks@2020-06-01' = {
-  name: '${privateDnsZoneNameForDb}/${privateDnsZoneNameForDb}-vnetlink'
+  parent: privateDnsZoneNameForDb_resource
+  name: '${privateDnsZoneNameForDb}-vnetlink'
   location: 'global'
   properties: {
     virtualNetwork: {
@@ -224,10 +236,6 @@ resource privateDnsZoneNameForDb_privateDnsZoneNameForDb_vnetlink 'Microsoft.Net
     }
     registrationEnabled: true
   }
-  dependsOn: [
-    privateDnsZoneNameForDb_resource
-
-  ]
 }
 
 resource app_virtualNetwork 'Microsoft.Web/sites/networkConfig@2022-03-01' = {
@@ -269,7 +277,8 @@ resource cdnProfile 'Microsoft.Cdn/profiles@2021-06-01' = {
 }
 
 resource cdnProfileName_cdnEndPoint 'Microsoft.Cdn/profiles/endpoints@2021-06-01' = {
-  name: '${cdnProfileName}/${cdnEndpointName}'
+  parent: cdnProfile
+  name: cdnEndpointName
   location: 'Global'
   tags:tags
 
@@ -418,7 +427,6 @@ resource cdnProfileName_cdnEndPoint 'Microsoft.Cdn/profiles/endpoints@2021-06-01
     }
   }
   dependsOn: [
-    cdnProfile
     app_service
     storageAccountName_default_blobContainer
   ]
@@ -471,7 +479,8 @@ resource storageAccount 'Microsoft.Storage/storageAccounts@2022-09-01' = {
 }
 
 resource storageAccountName_default 'Microsoft.Storage/storageAccounts/blobServices@2022-09-01' = {
-  name: '${storageAccountName}/default'
+  parent: storageAccount
+  name: 'default'
   properties: {
     restorePolicy: {
       enabled: false
@@ -489,9 +498,6 @@ resource storageAccountName_default 'Microsoft.Storage/storageAccounts/blobServi
     }
     isVersioningEnabled: false
   }
-  dependsOn: [
-    storageAccount
-  ]
 }
 
 resource storageAccountName_default_blobContainer 'Microsoft.Storage/storageAccounts/blobServices/containers@2022-09-01' = {
