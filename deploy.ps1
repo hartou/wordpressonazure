@@ -11,15 +11,15 @@ param
     [string]$subscriptionId="Enter your subscription id",
     # [string]$keyVaultName="${name}-kv"
     #[string]$serverPassword_Scrt=$(read-host -Prompt "Enter sql server password"),
-	#[string]$wordpressPassword_Scrt=$(read-host -Prompt "Enter sql server password"),
+	#[string]$wordpressPassword_Scrt=$(read-host -Prompt "Enter sql server password")
 	[string]$sqlServerPassword=([xml](Get-Content env.xml)).root.SQLServerPassword,
-    [string]$wordpressPassword=([xml](Get-Content env.xml)).root.WordPressPassword,
-    [string]$AzureStorage_AccountKey=([xml](Get-Content env.xml)).root.AzureStorage_AccountKey
+    [string]$wordpressPassword=([xml](Get-Content env.xml)).root.WordPressPassword
+
 )
 
 
 # Set a default subscription for the current session.
-# az account set --subscription $subscriptionId
+ az account set --subscription $subscriptionId
 
 # Create a resource group.
 az group create --name $RGName --location $location
@@ -48,7 +48,7 @@ az group create --name $RGName --location $location
 # Deploy the template to the resource group
 az deployment group create --resource-group $RGName --template-file $templateFileName `
     --parameters $paramFileName name=$name wordpressPassword=$wordpressPassword sqlServerPassword=$sqlServerPassword `
-    AzureStorage_AccountKey=$AzureStorage_AccountKey --name $deploymentName
+    --name $deploymentName
 
 # create azure file share for wordpress
 # az storage share create --name "wpdemo-wpfiles" --account-name "wpdemostrgacc" --quota 5120
