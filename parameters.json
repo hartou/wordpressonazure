@@ -29,22 +29,6 @@
     "wordpressUsername":
       {
         "value": "wordpressUsername"
-      },
-    "BYOS_mountName":
-      {
-        "value": "wpsite"
-      },
-      "BYOS_mountPath":
-      {
-        "value": "/home/site/wwwroot"
-      },
-    "AzureStorage_AccountName":
-      {
-        "value": "wp0321sa"
-      },
-    "AzureStorage_ShareName":
-      {
-        "value": "wpsite"
       }
 
   }
