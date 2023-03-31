@@ -60,8 +60,8 @@ param cdnOriginHostHeader string = '${name}.azurewebsites.net'
 //param AzureStorage_AccountName string
 //param AzureStorage_ShareName string
 
-@secure()
-param AzureStorage_AccountKey string
+//@secure()
+//param AzureStorage_AccountKey string
 // tags
 var tags = {
   AppProfile: 'Wordpress'
@@ -79,6 +79,7 @@ var storageAccountId = storageAccount.id
 // resource kv 'Microsoft.KeyVault/vaults@2022-07-01' existing= {
 //   name: name
 // }
+
 module app_service 'appservice.bicep'= {
   name: 'appservice'
   params: {
@@ -101,11 +102,11 @@ module app_service 'appservice.bicep'= {
     hostingPlanName: hostingPlanName
     blobContainerName: blobContainerName
     // BYOS: Bring Your Own Storage
-    BYOS_mountName: BYOS_mountName
-    BYOS_mountPath: BYOS_mountPath
-    AzureStorage_AccountName: AzureStorage_AccountName
-    AzureStorage_ShareName: AzureStorage_ShareName
-    AzureStorage_AccountKey: AzureStorage_AccountKey
+    //BYOS_mountName: BYOS_mountName
+    //BYOS_mountPath: BYOS_mountPath
+    //AzureStorage_AccountName: AzureStorage_AccountName
+    //AzureStorage_ShareName: AzureStorage_ShareName
+    //AzureStorage_AccountKey: AzureStorage_AccountKey
 
   }
   dependsOn: [    
