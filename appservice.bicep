@@ -25,13 +25,13 @@ param  storageAccountId string
 param  hostingPlanName string
 param AppProfile string='Wordpress'
 
-// BYOS : Bring Your Own Storage
-param BYOS_mountName string
-param BYOS_mountPath string
-param AzureStorage_AccountName string
-param AzureStorage_ShareName string
-@secure()
-param AzureStorage_AccountKey string
+// // BYOS : Bring Your Own Storage
+// param BYOS_mountName string
+// param BYOS_mountPath string
+// param AzureStorage_AccountName string
+// param AzureStorage_ShareName string
+// @secure()
+// param AzureStorage_AccountKey string
 
 
 var hostingPlanid=resourceId('Microsoft.Web/serverfarms', hostingPlanName)
@@ -130,15 +130,15 @@ resource app_service 'Microsoft.Web/sites@2022-03-01' = {
       connectionStrings: []
       linuxFxVersion: linuxFxVersion
       vnetRouteAllEnabled: true
-      azureStorageAccounts: {
-        '${BYOS_mountName}': {
-          mountPath: BYOS_mountPath
-          accountName: AzureStorage_AccountName
-          type: 'AzureFiles'
-          shareName: AzureStorage_ShareName
-          accessKey: AzureStorage_AccountKey
-        }
-      }
+      // azureStorageAccounts: {
+      //   '${BYOS_mountName}': {
+      //     mountPath: BYOS_mountPath
+      //     accountName: AzureStorage_AccountName
+      //     type: 'AzureFiles'
+      //     shareName: AzureStorage_ShareName
+      //     accessKey: AzureStorage_AccountKey
+      //   }
+      // }
     }
 
     serverFarmId:hostingPlanid
