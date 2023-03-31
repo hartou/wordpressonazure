@@ -55,10 +55,10 @@ param privateDnsZoneNameForDb string= '${name}-privatelink.mysql.database.azure.
 param cdnOriginHostHeader string = '${name}.azurewebsites.net'
 
 // BYOS: Bring Your Own Storage
-param BYOS_mountName string = 'BYOS'
-param BYOS_mountPath string = '/BYOS'
-param AzureStorage_AccountName string
-param AzureStorage_ShareName string
+//param BYOS_mountName string = 'BYOS'
+//param BYOS_mountPath string = '/BYOS'
+//param AzureStorage_AccountName string
+//param AzureStorage_ShareName string
 
 @secure()
 param AzureStorage_AccountKey string
